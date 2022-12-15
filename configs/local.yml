@@ -1,0 +1,5 @@
+HOST_TYPE: "local"
+
+logging:
+  format: "text"
+  level: "debug"
