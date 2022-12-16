@@ -2,11 +2,15 @@ package response
 
 import (
 	"os"
+	"github.com/gin-gonic/gin"
+	"github.com/siruspen/logrus"
 )
 
 type response gin.H
 
 func Success(ctx *gin.Context, statusCode int, data interface{}) {
+	logger := ctx.Value("logger")
+	log := logger.(*logrus.Entry)
 	if ctx.Writer.Written() {
 		log.Warn("response body was already written! wil not overwrite")
 		return
@@ -22,6 +26,8 @@ func Success(ctx *gin.Context, statusCode int, data interface{}) {
 }
 
 func Fail(ctx *gin.Context, statusCode int, errors []gin.H, errCode ErrorCode, msg string) {
+	logger := ctx.Value("logger")
+	log := logger.(*logrus.Entry)
 	if ctx.Writer.Written() {
 		log.Warn("response body was already written! wil not overwrite")
 		return
@@ -39,6 +45,8 @@ func Fail(ctx *gin.Context, statusCode int, errors []gin.H, errCode ErrorCode, m
 }
 
 func Error(ctx *gin.Context, statusCode int, errors []gin.H, errCode ErrorCode, msg string) {
+	logger := ctx.Value("logger")
+	log := logger.(*logrus.Entry)
 	if ctx.Writer.Written() {
 		log.Warn("response body was already written! wil not overwrite")
 		return

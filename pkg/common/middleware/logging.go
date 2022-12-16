@@ -1,12 +1,14 @@
 package middleware
 
 import (
-	"gin_proj/pkg/common/request"
+	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/siruspen/logrus"
+	
+	"gin_proj/pkg/common/request"
 )
 
-func SetIdsInCtx() gin.HandlerFuc {
+func SetIdsInCtx() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		requestId := ctx.GetHeader(string(request.HeaderRequestId))
 		if requestId == "" {
@@ -19,16 +21,15 @@ func SetIdsInCtx() gin.HandlerFuc {
 		}
 
 		method := ctx.Request.Method
-		path := ctx.Request.Path
+		path := ctx.Request.URL.Path
 
-		logger := logrus.WithFields(
-			logrus.Fields{
+		logger1 := logrus.WithFields(logrus.Fields{
 				"request_id": requestId,
 				"request_path": path,
 				"request_method": method,
-			}
-		)
-		ctx.Set("logger", logger)
+		})
+
+		ctx.Set("logger", logger1)
 		ctx.Next()
 	}
 }

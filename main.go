@@ -1,9 +1,13 @@
 package main
 
 import (
+	"os"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/siruspen/logrus"
 	"github.com/spf13/viper"
-	"gin_proj/configs"
+	// "gin_proj/configs"
+	"gin_proj/api/rest"
 	"gin_proj/pkg/common/logging"
 )
 
@@ -43,11 +47,11 @@ func main() {
 	logrus.Info("starting server.........")
 	server := rest.BuildServer()
 	server.GET("/health_check", func(ctx *gin.Context) {
-		ctx.JSON(200, in.H{
-			"message": "OK"
+		ctx.JSON(200, gin.H{
+			"message": "OK",
 		})
 	})
 	if err := server.Run("0.0.0.0:8080"); err != nil {
-		lorus.Fatalf("cannot start the server %s", err.Error())
+		logrus.Fatalf("cannot start the server %s", err.Error())
 	}
 }

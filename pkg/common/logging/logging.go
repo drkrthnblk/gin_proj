@@ -26,7 +26,7 @@ func SetLevel(level string) {
 }
 
 func setupJsonLogging() {
-	logrus.SetFormatter(&logrus.JSONFrmatter{
+	logrus.SetFormatter(&logrus.JSONFormatter{
 		FieldMap: logrus.FieldMap{
 			logrus.FieldKeyFunc: "func",
 			logrus.FieldKeyLevel: "level",
@@ -34,7 +34,7 @@ func setupJsonLogging() {
 			logrus.FieldKeyLogrusError: "error",
 			logrus.FieldKeyTime: "time",
 		},
-		CallerPrettyfier: func(frame *runtime.Frame) (function, file, string) {
+		CallerPrettyfier: func(frame *runtime.Frame) (function, file string) {
 			fileName := path.Base(frame.File) + ":" + strconv.Itoa(frame.Line)
 			arr := strings.Split(frame.Func.Name(), ".")
 			return arr[len(arr)-1], fileName
@@ -44,7 +44,7 @@ func setupJsonLogging() {
 }
 
 func setupTextLogging() {
-	logrus.SetFormatter(&logrus.JSONFrmatter{
+	logrus.SetFormatter(&logrus.TextFormatter{
 		FieldMap: logrus.FieldMap{
 			logrus.FieldKeyFunc: "func",
 			logrus.FieldKeyLevel: "level",
@@ -52,8 +52,8 @@ func setupTextLogging() {
 			logrus.FieldKeyLogrusError: "error",
 			logrus.FieldKeyTime: "time",
 		},
-		padLevelText: true,
-		FullTimeStamp: true,
+		PadLevelText: true,
+		FullTimestamp: true,
 	})
 	logrus.SetReportCaller(true)
 }

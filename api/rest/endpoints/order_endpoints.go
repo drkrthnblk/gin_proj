@@ -8,4 +8,5 @@ import (
 func OrderRoutes(routerGroup *gin.RouterGroup) *gin.RouterGroup {
 	// orderGroup := routerGroup.Group("/order")
 	routerGroup.GET("/order", middleware.SetIdsInCtx())
+	return routerGroup
 }
