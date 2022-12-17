@@ -7,6 +7,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/siruspen/logrus v1.7.1
 	github.com/spf13/viper v1.14.0
+	gorm.io/gorm v1.24.2
 )
 
 require (
@@ -17,6 +18,8 @@ require (
 	github.com/go-playground/validator/v10 v10.11.1 // indirect
 	github.com/goccy/go-json v0.10.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.4 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect

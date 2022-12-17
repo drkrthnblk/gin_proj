@@ -8,7 +8,7 @@ import(
 func BuildServer() *gin.Engine {
 	server := gin.Default()
 	server.Use(gin.CustomRecovery(customisedHandleRecovvery))
-	orderGroup := server.Group("/orders")
+	orderGroup := server.Group("/apis")
 	endpoints.OrderRoutes(orderGroup)
 	return server
 }
