@@ -53,32 +53,32 @@ type Order struct {
 	SourceURL              interface{}   `json:"source_url"`
 	SubtotalPrice          string        `json:"subtotal_price"`
 	Tags                   string        `json:"tags"`
-	TaxLines               []Tax `json:"tax_lines" gorm:"type:jsonb"`
-	TaxesIncluded       bool        `json:"taxes_included"`
-	Test                bool        `json:"test"`
-	Token               string      `json:"token"`
-	TotalDiscounts      string      `json:"total_discounts"`
-	TotalLineItemsPrice string      `json:"total_line_items_price"`
-	TotalPrice          string      `json:"total_price"`
-	TotalPriceUsd       string      `json:"total_price_usd"`
-	TotalTax            string      `json:"total_tax"`
-	TotalTipReceived    string      `json:"total_tip_received"`
-	TotalWeight         int         `json:"total_weight"`
-	UpdatedAt           string      `json:"updated_at"`
-	UserID              interface{} `json:"user_id"`
-	BillingAddress      Address `json:"billing_address" gorm:"type:jsonb"`
-	Customer Customer `json:"customer"`
-	DiscountApplications []Discount `json:"discount_applications" gorm:"type:jsonb"`
-	Fulfillments   []Fulfillment `json:"fulfillments" gorm:"type:jsonb"`
-	LineItems      []LineItem `json:"line_items" gorm:"type:jsonb"`
-	PaymentDetails struct {
+	TaxLines               []Tax         `json:"tax_lines" gorm:"type:jsonb"`
+	TaxesIncluded          bool          `json:"taxes_included"`
+	Test                   bool          `json:"test"`
+	Token                  string        `json:"token"`
+	TotalDiscounts         string        `json:"total_discounts"`
+	TotalLineItemsPrice    string        `json:"total_line_items_price"`
+	TotalPrice             string        `json:"total_price"`
+	TotalPriceUsd          string        `json:"total_price_usd"`
+	TotalTax               string        `json:"total_tax"`
+	TotalTipReceived       string        `json:"total_tip_received"`
+	TotalWeight            int           `json:"total_weight"`
+	UpdatedAt              string        `json:"updated_at"`
+	UserID                 interface{}   `json:"user_id"`
+	BillingAddress         Address       `json:"billing_address" gorm:"type:jsonb"`
+	Customer               Customer      `json:"customer"`
+	DiscountApplications   []Discount    `json:"discount_applications" gorm:"type:jsonb"`
+	Fulfillments           []Fulfillment `json:"fulfillments" gorm:"type:jsonb"`
+	LineItems              []LineItem    `json:"line_items" gorm:"type:jsonb"`
+	PaymentDetails         struct {
 		CreditCardBin     interface{} `json:"credit_card_bin"`
 		AvsResultCode     interface{} `json:"avs_result_code"`
 		CvvResultCode     interface{} `json:"cvv_result_code"`
 		CreditCardNumber  string      `json:"credit_card_number"`
 		CreditCardCompany string      `json:"credit_card_company"`
 	} `json:"payment_details"`
-	Refunds         []Refund `json:"refunds" gorm:"type:jsonb"`
-	ShippingAddress Address `json:"shipping_address" gorm:"type:jsonb"`
-	ShippingLines []ShippingLine `json:"shipping_lines" gorm:"type:jsonb"`
+	Refunds         []Refund       `json:"refunds" gorm:"type:jsonb"`
+	ShippingAddress Address        `json:"shipping_address" gorm:"type:jsonb"`
+	ShippingLines   []ShippingLine `json:"shipping_lines" gorm:"type:jsonb"`
 }

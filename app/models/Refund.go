@@ -34,13 +34,13 @@ type Refund struct {
 		UserID     interface{} `json:"user_id"`
 	} `json:"transactions"`
 	RefundLineItems []struct {
-		ID          int     `json:"id"`
-		LineItemID  int     `json:"line_item_id"`
-		LocationID  int     `json:"location_id"`
-		Quantity    int     `json:"quantity"`
-		RestockType string  `json:"restock_type"`
-		Subtotal    float64 `json:"subtotal"`
-		TotalTax    float64 `json:"total_tax"`
+		ID          int      `json:"id"`
+		LineItemID  int      `json:"line_item_id"`
+		LocationID  int      `json:"location_id"`
+		Quantity    int      `json:"quantity"`
+		RestockType string   `json:"restock_type"`
+		Subtotal    float64  `json:"subtotal"`
+		TotalTax    float64  `json:"total_tax"`
 		LineItem    LineItem `json:"line_item"`
 	} `json:"refund_line_items"`
 	Duties []interface{} `json:"duties"`
