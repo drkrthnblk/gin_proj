@@ -46,6 +46,11 @@ func init() {
 func main() {
 	logrus.Info("starting server.........")
 	server := rest.BuildServer()
+	server.GET("/", func(ctx *gin.Context) {
+		ctx.JSON(200, gin.H{
+			"message": "Welcome to pages",
+		})
+	})
 	server.GET("/health_check", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{
 			"message": "OK",
