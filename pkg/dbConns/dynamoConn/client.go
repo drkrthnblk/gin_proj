@@ -26,7 +26,7 @@ func InitDB() error {
 		initializeError = err
 		singletonDB.dynamodb.New(sessionDynamo)
 	})
-	return err
+	return initializeError
 }
 
 func GetDB() *dynamodb.DynamoDB {

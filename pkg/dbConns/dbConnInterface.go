@@ -1,4 +1,4 @@
-package dbConns
+package dbconns
 
 import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
