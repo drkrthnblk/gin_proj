@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
-type sinleton struct {
+type singleton struct {
 	sync.Once
 	s3 *s3.S3
 	s3Session *session.Session
@@ -22,7 +22,7 @@ func InitDB() error {
 	var initializeError error
 	singletonDB.Do(func(){
 		sessionS3, err := session.NewSession(&aws.Config{
-			Region: aws.String(viper.GetString("dynamodb.region"))
+			Region: aws.String(viper.GetString("dynamodb.region")),
 		})
 		initializeError = err
 		singletonDB.s3 = s3.New(sessionS3)

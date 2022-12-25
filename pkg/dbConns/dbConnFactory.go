@@ -1,20 +1,21 @@
 package dbconns
 
 import (
-	"gin__proj/pkg/dbConns/postgresConn"
+	"fmt"
+	"gin_proj/pkg/dbConns/postgresConn"
 )
 
 type DbConnSelectorFactory struct {}
 
 func NewDbConnSelectorFactory() *DbConnSelectorFactory {
-	return *DbConnSelectorFactory{}
+	return &DbConnSelectorFactory{}
 }
 
-func (dbf DbConnSelectorFactory) GetDbConn(dbtType string) (DbConnSelector,error) {
+func (dbf DbConnSelectorFactory) GetDbConn(dbtType DbConnType) (DbConnSelector,error) {
 	switch dbtType {
-	case DbConnType.POSTGRESCONN:
+	case POSTGRESCONN:
 		return postgresConn.NewPostgresClient(), nil
 	default:
-		return nil, error.Error("unknown DB conn type")
+		return nil, fmt.Errorf("unknown DB conn type")
 	}
 }

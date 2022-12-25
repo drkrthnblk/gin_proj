@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 )
 
-type sinleton struct {
+type singleton struct {
 	sync.Once
 	dynamoDB *dynamodb.DynamoDB
 }
@@ -21,10 +21,10 @@ func InitDB() error {
 	var initializeError error
 	singletonDB.Do(func(){
 		sessionDynamo, err := session.NewSession(&aws.Config{
-			Region: aws.String(viper.GetString("dynamodb.region"))
+			Region: aws.String(viper.GetString("dynamodb.region")),
 		})
 		initializeError = err
-		singletonDB.dynamodb.New(sessionDynamo)
+		singletonDB.dynamoDB = dynamodb.New(sessionDynamo)
 	})
 	return initializeError
 }

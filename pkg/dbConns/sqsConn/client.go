@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/sqs"
 )
 
-type sinleton struct {
+type singleton struct {
 	sync.Once
 	sqs *sqs.SQS
 	sqsSession *session.Session
@@ -22,7 +22,7 @@ func InitDB() error {
 	var initializeError error
 	singletonDB.Do(func(){
 		sessionSQS, err := session.NewSession(&aws.Config{
-			Region: aws.String(viper.GetString("dynamodb.region"))
+			Region: aws.String(viper.GetString("dynamodb.region")),
 		})
 		initializeError = err
 		singletonDB.sqs = sqs.New(sessionSQS)
