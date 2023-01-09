@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"sync"
 	"time"
+
 	// "context"
+	"github.com/spf13/viper"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"gorm.io/driver/postgres"
-	"github.com/spf13/viper"
 	// _ "github.com/newrelic/go-agent/v3/integrations/nrpgx"
 	// "gin_proj/pkg/common/request"
 )
@@ -27,14 +28,14 @@ var (
 	singletonDB singleton
 )
 
-type PostgresClient struct {}
+type PostgresClient struct{}
 
 func NewPostgresClient() *PostgresClient {
 	return &PostgresClient{}
 }
 
-func (pc PostgresClient)InitDB() error {
-	singletonDB.Do(func(){
+func (pc PostgresClient) InitDB() error {
+	singletonDB.Do(func() {
 		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslnode=disable",
 			viper.GetString("database.postres.source.host"),
 			viper.GetString("database.postres.source.user"),
@@ -44,7 +45,7 @@ func (pc PostgresClient)InitDB() error {
 		)
 		postgresDB, err := gorm.Open(postgres.New(postgres.Config{
 			DriverName: "nrpgx",
-			DSN: dsn,
+			DSN:        dsn,
 		}), &gorm.Config{
 			Logger: logger.Default.LogMode(logger.Silent),
 		})
@@ -73,10 +74,10 @@ func (pc PostgresClient)InitDB() error {
 // 	return nil
 // }
 
-func (pc PostgresClient)GetClient() *gorm.DB {
-	return singletonDB.postresDB
+func (pc PostgresClient) GetClient() (*gorm.DB, error) {
+	return singletonDB.postresDB, nil
 }
 
-func (pc PostgresClient)GetSession() *gorm.Session {
-	return nil
+func (pc PostgresClient) GetSession() (*gorm.Session, error) {
+	return nil, nil
 }

@@ -5,13 +5,13 @@ import (
 	"gin_proj/pkg/dbConns/postgresConn"
 )
 
-type DbConnSelectorFactory struct {}
+type DbConnSelectorFactory struct{}
 
 func NewDbConnSelectorFactory() *DbConnSelectorFactory {
 	return &DbConnSelectorFactory{}
 }
 
-func (dbf DbConnSelectorFactory) GetDbConn(dbtType DbConnType) (DbConnSelector,error) {
+func (dbf DbConnSelectorFactory) GetDbConn(dbtType DbConnType) (interface{}, error) {
 	switch dbtType {
 	case POSTGRESCONN:
 		return postgresConn.NewPostgresClient(), nil

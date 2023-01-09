@@ -1,12 +1,14 @@
 package services
 
-import(
+import (
 	"fmt"
 	// "encoding/json"
-	"github.com/gin-gonic/gin"
 	"gin_proj/app/structs"
+
+	"github.com/gin-gonic/gin"
+
 	// "gin_proj/pkg/common/utils"
-	"gin_proj/pkg/dbConns"
+	dbconns "gin_proj/pkg/dbConns"
 )
 
 func GetAllOrders(c *gin.Context) (*structs.OrdersResp, error) {
@@ -21,7 +23,7 @@ func GetAllOrders(c *gin.Context) (*structs.OrdersResp, error) {
 	// 	return nil, err
 	// }
 
-	r := dbConns.NewDbConnSelectorFactory()
+	r, _ := dbconns.NewDbConnSelectorFactory().GetDbConn(dbconns.POSTGRESCONN)
 	fmt.Printf("%s\n", r)
 
 	return &orders, nil
