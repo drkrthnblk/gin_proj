@@ -9,6 +9,8 @@ import (
 	"io"
 	"net/http"
 	"time"
+	"fmt"
+	"log"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -44,14 +46,14 @@ func ReadRequestBody(c *gin.Context) (*[]byte, error) {
 	return &jsonData, nil
 }
 
-func SendAPIRequest[P requestdetails.ApiPayload](endpoint, method *string, payload *P, headers, params *map[string]interface{}) (*[]byte, error) {
+func SendAPIRequest[P requestdetails.ApiPayload](endpoint, method *string, payload *P, headers, params *map[string]string) (*[]byte, error) {
 	marshaledBody, _ := json.Marshal(payload)
 	data := bytes.NewBuffer(marshaledBody)
 	restRequest, _ := http.NewRequest(*method, *endpoint, data)
 
 	if headers != nil {
 		for key, value := range *headers {
-			restRequest.Header.Add(key, value.(string))
+			restRequest.Header.Add(key, value)
 		}
 	}
 
@@ -60,17 +62,17 @@ func SendAPIRequest[P requestdetails.ApiPayload](endpoint, method *string, paylo
 		for key, value := range *params {
 			qParams.Add(key, value)
 		}
-		restRequest.URL.RawQuery = qParams.Enode()
+		restRequest.URL.RawQuery = qParams.Encode()
 	}
 
 	response, err := restclient.Client.Do(restRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer fun(Body io.ReadCloser){
+	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
-			return nil, err
+			log.Fatal(err)
 		}
 	}(response.Body)
 
@@ -88,7 +90,7 @@ func SendAPIRequest[P requestdetails.ApiPayload](endpoint, method *string, paylo
 		if err != nil {
 			return nil, err
 		}
-		return nil, Error("something went wrong while sending digio request")
+		return nil, fmt.Errorf("something went wrong while sending digio request %s", jsonData)
 	}
-	return body, nil
+	return &body, nil
 }
