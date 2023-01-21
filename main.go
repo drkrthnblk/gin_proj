@@ -1,14 +1,17 @@
 package main
 
 import (
-	"os"
 	"fmt"
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"github.com/siruspen/logrus"
 	"github.com/spf13/viper"
+
 	// "gin_proj/configs"
 	"gin_proj/api/rest"
 	"gin_proj/pkg/common/logging"
+	"gin_proj/pkg/dbConns/postgresConn"
 )
 
 func setupConfig() {
@@ -41,6 +44,11 @@ func init() {
 
 	fmt.Println("loading logger...........")
 	setupLogger()
+
+	logrus.Info("initializing postgres db connection.........")
+	if postgresError := postgresConn.NewPostgresClient().InitDB(); postgresError != nil {
+		logrus.Panicf("cannot connect to postgres db: %s", postgresError.Error())
+	}
 }
 
 func main() {

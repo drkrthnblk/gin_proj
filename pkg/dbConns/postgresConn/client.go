@@ -36,16 +36,16 @@ func NewPostgresClient() *PostgresClient {
 
 func (pc PostgresClient) InitDB() error {
 	singletonDB.Do(func() {
-		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslnode=disable",
-			viper.GetString("database.postres.source.host"),
-			viper.GetString("database.postres.source.user"),
-			viper.GetString("database.postres.source.password"),
-			viper.GetString("database.postres.source.db_name"),
-			viper.GetInt("database.postres.source.port"),
+		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable",
+			viper.GetString("database.postgres.host"),
+			viper.GetString("database.postgres.user"),
+			viper.GetString("database.postgres.password"),
+			viper.GetString("database.postgres.db_name"),
+			viper.GetInt("database.postgres.port"),
 		)
 		postgresDB, err := gorm.Open(postgres.New(postgres.Config{
-			DriverName: "nrpgx",
-			DSN:        dsn,
+			// DriverName: "nrpgx",
+			DSN: dsn,
 		}), &gorm.Config{
 			Logger: logger.Default.LogMode(logger.Silent),
 		})

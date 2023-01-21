@@ -4,5 +4,13 @@ logging:
   format: "text"
   level: "debug"
 
-git:
-  token: "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"
+database:
+  postgres:
+    max_idle_connections: 2
+    max_open_connections: 10
+    max_connection_lifetime: 1  # max amount of time a conn may be reused (in hr)
+    host: chunee.db.elephantsql.com
+    port: 5432
+    user: udxcnbre
+    password: NTZ4wACcBlYBFjVs3ixjnVqVHH-Yob8K
+    db_name: udxcnbre

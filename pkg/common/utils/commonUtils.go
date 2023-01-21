@@ -3,14 +3,14 @@ package utils
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	requestdetails "gin_proj/pkg/common/requestDetails"
-	"gin_proj/pkg/common/restclient"
 	"gin_proj/pkg/common/response"
+	"gin_proj/pkg/common/restclient"
 	"io"
+	"log"
 	"net/http"
 	"time"
-	"fmt"
-	"log"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -94,3 +94,44 @@ func SendAPIRequest[P requestdetails.ApiPayload](endpoint, method *string, paylo
 	}
 	return &body, nil
 }
+
+type JSON json.RawMessage
+
+// // Scan scan value into Jsonb, implements sql.Scanner interface
+// func (j *JSON) Scan(value interface{}) error {
+// 	bytes, ok := value.([]byte)
+// 	if !ok {
+// 		return errors.New(fmt.Sprint("Failed to unmarshal JSONB value:", value))
+// 	}
+
+// 	result := json.RawMessage{}
+// 	err := json.Unmarshal(bytes, &result)
+// 	*j = JSON(result)
+// 	return err
+// }
+
+// // Value return json value, implement driver.Valuer interface
+// func (j JSON) Value() (driver.Value, error) {
+// 	if len(j) == 0 {
+// 		return nil, nil
+// 	}
+// 	return json.RawMessage(j).MarshalJSON()
+// }
+
+func ParseJSONToModel(src, dest interface{}) error {
+	var data []byte
+
+	if b, ok := src.([]byte); ok {
+		data = b
+	} else if s, ok := src.(string); ok {
+		data = []byte(s)
+	}
+	return json.Unmarshal(data, dest)
+}
+
+// func ParseModelToJSON(j JSON)(driver.Value, error) {
+// 	if len(j) == 0 {
+// 		return nil, nil
+// 	}
+// 	return json.Marshal(j)
+// }
