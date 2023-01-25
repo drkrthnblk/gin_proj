@@ -1,6 +1,11 @@
 package models
 
+import (
+	"gorm.io/gorm"
+)
+
 type Discount struct {
+	gorm.Model
 	Code             string `json:"code"`
 	Amount           string `json:"amount"`
 	Type             string `json:"type"`
